@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { AiFillInfoCircle } from "react-icons/ai";
 
 const initialData = {
   daily: 1200,
@@ -8,6 +10,8 @@ const initialData = {
 };
 
 const Fare = () => {
+  const navigate = useNavigate();
+
   const [earnings, setEarnings] = useState(initialData);
   const [showTransactions, setShowTransactions] = useState(false);
   const [dailyEntries, setDailyEntries] = useState([
@@ -87,8 +91,8 @@ const Fare = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-6">Fare Dashboard</h1>
+    <div className="relative min-h-screen p-6 bg-gray-100">
+      <h1 className="text-3xl font-bold text-center mb-6">CashFlow 💸</h1>
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -232,6 +236,17 @@ const Fare = () => {
           </table>
         </div>
       )}
+
+      {/* Nested route outlet */}
+      <Outlet />
+
+      {/* Floating Icon to navigate to extra features */}
+      <button
+        onClick={() => navigate("features")}
+        className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 flex items-center justify-center z-50"
+      >
+        <AiFillInfoCircle />
+      </button>
     </div>
   );
 };
